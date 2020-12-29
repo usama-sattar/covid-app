@@ -1,111 +1,67 @@
-import 'react-native-gesture-handler';
+import React, { Component } from "react";
+import { NavigationContainer } from "@react-navigation/native";
+import { createDrawerNavigator } from "@react-navigation/drawer";
+import { createStackNavigator } from "@react-navigation/stack";
+import "react-native-gesture-handler";
+import { ProductProvider } from "./context";
+import World from "./component/World";
+import Countries from "./component/Countries";
+import Favourite from "./component/Favourite";
+import Country from "./component/Country";
 
-import React from 'react';
-
-import {NavigationContainer} from '@react-navigation/native';
-import {createStackNavigator} from '@react-navigation/stack';
-
-
-import Home from './component/Home/Home';
-import Product from './component/Product/Product';
-import Chocolate from './component/Product/Chocolate';
-import Employee from './components/Employee';
-import EmployeeDetail from './component/Employee/EmployeeDetail'
-import Order from './component/Order';
-
+const Drawer = createDrawerNavigator();
 const Stack = createStackNavigator();
-
-const App = () => {
-  return (
-    <NavigationContainer>
-      <Stack.Navigator initialRouteName="Home">
-        <Stack.Screen
-          name="Home"
-          component={Home}
-          options={{
-            title: 'Home Page', 
-            headerStyle: {
-              backgroundColor: 'cyan', 
-            },
-            headerTintColor: 'blue', 
-            headerTitleStyle: {
-              fontWeight: 'bold', 
-            },
-          }}
-        />
-        <Stack.Screen
-          name="Product"
-          component={Product}
-          options={{
-            title: 'Products', 
-            headerStyle: {
-              backgroundColor: 'cyan', 
-            },
-            headerTintColor: 'blue', 
-            headerTitleStyle: {
-              fontWeight: 'bold', 
-            },
-          }}
-        />
-        <Stack.Screen
-          name="Chocolate"
-          component={Chocolate}
-          options={{
-            title: 'Products', 
-            headerStyle: {
-              backgroundColor: 'cyan', 
-            },
-            headerTintColor: 'blue', 
-            headerTitleStyle: {
-              fontWeight: 'bold', 
-            },
-          }}
-        />
-        <Stack.Screen
-          name="Employee"
-          component={Employee}
-          options={{
-            title: 'Employees',
-            headerStyle: {
-              backgroundColor: 'cyan', 
-            },
-            headerTintColor: 'blue', 
-            headerTitleStyle: {
-              fontWeight: 'bold', 
-            },
-          }}
-        />
-        <Stack.Screen
-          name="EmployeeDetail"
-          component={EmployeeDetail}
-          options={{
-            title: 'Employee Data', 
-            headerStyle: {
-              backgroundColor: 'cyan', 
-            },
-            headerTintColor: 'blue', 
-            headerTitleStyle: {
-              fontWeight: 'bold', 
-            },
-          }}
-        />
-        <Stack.Screen
-          name="Order"
-          component={Order}
-          options={{
-            title: 'Orders', 
-            headerStyle: {
-              backgroundColor: 'cyan', 
-            },
-            headerTintColor: 'blue',
-            headerTitleStyle: {
-              fontWeight: 'bold', },
-          }}
-        />
-        
-      </Stack.Navigator>
-    </NavigationContainer>
-  );
-};
+class App extends Component {
+  state = {};
+  drawer = () => {
+    return (
+      <Drawer.Navigator initialRouteName="World">
+        <Drawer.Screen name="World" component={World} />
+        <Drawer.Screen name="Countries" component={Countries} />
+        <Drawer.Screen name="Favourite" component={Favourite} />
+      </Drawer.Navigator>
+    );
+  };
+  render() {
+    return (
+      <ProductProvider>
+        <NavigationContainer>
+          <Stack.Navigator initialRouteName="drawer">
+            <Stack.Screen
+              name="drawer"
+              component={this.drawer}
+              options={{
+                title: "Covid-app",
+                headerStyle: {
+                  backgroundColor: "#eb4f34",
+                },
+                headerTintColor: "#fff",
+                headerTitleStyle: {
+                  fontWeight: "bold",
+                  color: "black",
+                },
+              }}
+            />
+            <Stack.Screen
+              name="Country"
+              component={Country}
+              options={{
+                title: "Covid-app",
+                headerStyle: {
+                  backgroundColor: "#eb4f34",
+                },
+                headerTintColor: "#fff",
+                headerTitleStyle: {
+                  fontWeight: "bold",
+                  color: "black",
+                },
+              }}
+            />
+          </Stack.Navigator>
+        </NavigationContainer>
+      </ProductProvider>
+    );
+  }
+}
 
 export default App;
